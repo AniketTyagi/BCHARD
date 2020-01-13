@@ -9,6 +9,7 @@ var audioAverage = [];
 var audioAverage = 0;
 var audioSpikes = [];
 var silenceBegin = 0, silenceEnd = 0, silenceToggle = true;
+var globalThreshHold = 0.1;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
@@ -114,18 +115,18 @@ function renderSpikes() {
     stroke(100, 30, 200);
     strokeWeight(1);
     fill(0);
-    if(abs(audioBars[i][0] - height/2) > 0.1) {  
+    if(abs(audioBars[i][0] - height/2) > globalThreshHold) {  
       ellipse(width / 2 - (audioBars.length / 2 * (barWidth * 1.5)) + (i * barWidth * 1.5), height/3, 5, 5);
     }
   }
-  if(silenceToggle == false && abs(audioBars[audioBars.length - 1][0] - height/2) > 1) {
+  if(silenceToggle == false && abs(audioBars[audioBars.length - 1][0] - height/2) > globalThreshHold) {
     silenceEnd = millis();
     if((silenceEnd - silenceBegin) / 1000 > 0.75) {  
       audioSpikes[audioSpikes.length] = [silenceBegin / 1000, silenceEnd/1000];
     }
     silenceToggle = true;
   }
-  if(silenceToggle == true && abs(audioBars[audioBars.length - 1][0] - height/2) < 1) {
+  if(silenceToggle == true && abs(audioBars[audioBars.length - 1][0] - height/2) < globalThreshHold) {
     silenceBegin = millis();
     silenceToggle = false;
   }
