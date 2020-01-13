@@ -9,7 +9,7 @@ var audioAverage = [];
 var audioAverage = 0;
 var audioSpikes = [];
 var silenceBegin = 0, silenceEnd = 0, silenceToggle = true;
-var globalThreshHold = 0.1;
+var globalThreshHold = 1;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
